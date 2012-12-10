@@ -58,3 +58,4 @@ frontPageFiles/.DS_Store
 BLOG/*.pyc
 *.pyc
 FORUM/*.pyc
+*~

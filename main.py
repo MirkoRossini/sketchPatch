@@ -58,10 +58,10 @@ def main():
                                         ('/myPageEdit/*$', blog.showProfileEdit),
                                         ('/avatar/*([\w\s]*-*[\w\s]*)\.png/*$', blog.avatarImage),                                      
                                         ('/mySketches/*$', blog.showMySketches),
-                                        ('/indexSKELETAL.html', blog.showFrontPageSKELETAL),
+
                                         ('/index.html', blog.showFrontPage),
                                         ('/watermansIndex.html', blog.showFrontPage),
-                                        ('/indexNEW.html', blog.showFrontPageNEW),
+
                                         ('/', blog.showFrontPage),
                                         ('/view/([-\w]+)/([-\w]*)/*$', blog.ArticleHandler),
                                         ('/uploadFullSketchImagePage/([-\w]+)/([-\w]*)/*$', blog.UploadFullSketchImagePage),
@@ -80,8 +80,6 @@ def main():
                                         ('/groupLogin.html', blog.GroupLogin),
                                         ('/create/*$', blog.AddBlog),
                                         ('/edit/(.*)/*$', blog.EditBlog),
-                                        ('/createNEW/*$', blog.AddBlogNEW),
-                                        ('/editNEW/(.*)/*$', blog.EditBlogNEW),
                                         #('/edit/comment/(.*)/(.*)/*$', blog.EditBlogReaction),
                                         ('/delete/comment/(.*)/(.*)/*$', blog.DeleteBlogReaction),
 

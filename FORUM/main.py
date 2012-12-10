@@ -360,7 +360,7 @@ class ManageForums(FofouBase):
 
   def post(self):
     if not users.is_current_user_admin():
-      return self.redirect("/forum/")
+      return self.redirect("/forumList/")
 
     forum_key = self.request.get('forum_key')
     forum = None
@@ -368,7 +368,7 @@ class ManageForums(FofouBase):
       forum = db.get(db.Key(forum_key))
       if not forum:
         # invalid key - should not happen so go to top-level
-        return self.redirect("/forum/")
+        return self.redirect("/forumList/")
 
     vals = ['url','title', 'tagline', 'sidebar', 'disable', 'enable', 'analyticscode']
     (url, title, tagline, sidebar, disable, enable, analytics_code) = req_get_vals(self.request, vals)
@@ -411,12 +411,12 @@ class ManageForums(FofouBase):
       forum = Forum(url=url, title=title, tagline=tagline, sidebar=sidebar, analytics_code = analytics_code)
       forum.put()
       msg = "Forum '%s' has been created." % title_or_url
-    url = "/forum/manageforums?msg=%s" % urllib.quote(to_utf8(msg))
+    url = "/forumList/manageforums?msg=%s" % urllib.quote(to_utf8(msg))
     return self.redirect(url)
 
   def get(self):
     if not users.is_current_user_admin():
-      return self.redirect("/forum/")
+      return self.redirect("/forumList/")
 
     # if there is 'forum_key' argument, this is editing an existing forum.
     forum = None
@@ -484,7 +484,7 @@ class ManageForums(FofouBase):
 class ForumList(FofouBase):
   def get(self):
     if users.is_current_user_admin():
-      return self.redirect("/forum/manageforums")
+      return self.redirect("/forumList/manageforums")
     MAX_FORUMS = 256 # if you need more, tough
     forums = db.GqlQuery("SELECT * FROM Forum").fetch(MAX_FORUMS)
     for f in forums:
@@ -962,8 +962,8 @@ class PostForm(FofouBase):
 
 def main():
   application = webapp.WSGIApplication(
-     [  ('/forum/', ForumList),
-        ('/forum/manageforums', ManageForums),
+     [  ('/forumList/', ForumList),
+        ('/forumList/manageforums', ManageForums),
         ('/forum/[^/]+/postdel', PostDelUndel),
         ('/forum/[^/]+/postundel', PostDelUndel),
         ('/forum/[^/]+/post', PostForm),
